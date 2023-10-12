@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<select name="" id="input_lang" onchange="dictionary()">
+    <option value="vn">Việt Nam</option>
+    <option value="en">English</option>
+    <option value="jpn">English</option>
+
+</select>
+&#8594;
+<select name="" id="output_lang" onchange="dictionary()">
+    <option value="vn">Việt Nam</option>
+    <option value="en">English</option>
+    <option value="jpn">Japan</option>
+</select><br><br>
+<textarea type="text" id="lang"></textarea>
+<h1 id="result"></h1>
+<button onclick="dictionary()">Translate</button>
+<script>
+    let vietnamese = ['Xin chào', 'Tạm Biệt', 'Cảm Ơn'];
+    let english = ['Hello', 'Good Bye', 'Thank You']
+    let japanese = ["Kon'ichiwa", 'Sayonara', 'Kansha']
+    let map = new Map();
+    map.set('vn', vietnamese);
+    map.set('en', english);
+    map.set('jpn', japanese);
+    console.log('get key', map.get('vn'))
+
+    function dictionary() {
+        let input = document.getElementById('lang').value;
+        console.log('input -->', input)
+        let input_lang = document.getElementById('input_lang').value;
+        let output_lang = document.getElementById('output_lang').value;
+        // console.log('choose_lang', choose_lang)
+        chooseLanguage(input, map.get(input_lang), map.get(output_lang));
+    }
+
+    function getIndex(input, arr) {
+        for (let i = 0; i < arr.length; i++) {
+            if (input.toLowerCase() === arr[i].toLowerCase()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    function chooseLanguage(input, arrInput, arrOutPut) {
+        for (let i = 0; i < arrOutPut.length; i++) {
+            if (getIndex(input, arrInput) === i) {
+                document.getElementById('result').innerText = arrOutPut[i];
+                return;
+            } else {
+                document.getElementById('result').innerText = 'Not Found!';
+            }
+        }
+    }
+
+
+</script>
+</body>
+</html>
